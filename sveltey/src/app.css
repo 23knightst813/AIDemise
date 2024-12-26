@@ -36,9 +36,12 @@ h1 {
   line-height: 1.1;
   font-family: 'Bad Script', cursive;
 }
-
 .card {
   padding: 2em;
+}
+
+.Saneriao {
+  font-size: large;
 }
 
 #app {
