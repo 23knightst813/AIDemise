@@ -1,9 +1,22 @@
+<script>
+    import SuccessMessage from './SuccessMessage.svelte';
+    let showMessage = false;
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        showMessage = true;
+        setTimeout(() => showMessage = false, 1000);
+    }
+</script>
+
 <div>
-    <form>
-    <input type="text"/>
-    </form> 
-    <br>    
-<button type="submit">Submit</button>
+    <form on:submit={handleSubmit}>
+        <input type="text"/>
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <SuccessMessage show={showMessage} />
 </div>
 
 <style>
