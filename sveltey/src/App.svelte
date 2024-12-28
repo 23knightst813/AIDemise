@@ -3,6 +3,7 @@
   import ScenarioGen from './lib/ScenarioGen.svelte'
   import '@fontsource/bad-script';
   import { writable } from 'svelte/store';
+  import { sessionId } from 'svelte/store';
 
   const sessionId = writable(null);
 </script>
