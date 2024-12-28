@@ -1,4 +1,5 @@
 <script>
+    import { get } from 'svelte/store';
     import SuccessMessage from './SuccessMessage.svelte';
     
     export let sessionId;
@@ -10,7 +11,7 @@
         event.preventDefault();
         
         // Get the current value from the sessionId store
-        let currentSessionId = $sessionId;
+        let currentSessionId = get(sessionId);
         
         // Update this check
         if (!currentSessionId) {
