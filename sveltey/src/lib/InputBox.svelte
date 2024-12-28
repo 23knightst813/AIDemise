@@ -1,17 +1,35 @@
 <script>
     import SuccessMessage from './SuccessMessage.svelte';
+    
+    export let sessionId;
     let showMessage = false;
     let userResponse = '';
     let storyResult = null;
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const response = await fetch(`http://localhost:8000/gen_story_result?user_response=${encodeURIComponent(userResponse)}`);
-        const data = await response.json();
-        if (data.story_result) {
-            storyResult = data.story_result;
-            showMessage = true;
-            setTimeout(() => showMessage = false, 1000);
+        
+        // Get the current value from the sessionId store
+        let currentSessionId = $sessionId;
+        
+        // Update this check
+        if (!currentSessionId) {
+            console.error("No session ID available");
+            return;
+        }
+        
+        try {
+            const response = await fetch(
+                `http://localhost:8000/gen_story_result?session_id=${currentSessionId}&user_response=${encodeURIComponent(userResponse)}`
+            );
+            const data = await response.json();
+            if (data.story_result) {
+                storyResult = data.story_result; // Remove JSON.parse since API returns parsed JSON
+                showMessage = true;
+                setTimeout(() => showMessage = false, 1000);
+            }
+        } catch (error) {
+            console.error("Error:", error);
         }
     }
 </script>

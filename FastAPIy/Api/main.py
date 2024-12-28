@@ -1,35 +1,47 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from AI import gen_scenario, gen_story_result
+import uuid
+from typing import Dict
 
 app = FastAPI()
 
-# Enable CORS
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust this to your needs
+    allow_origins=["http://localhost:5173"],  # Svelte dev server default port
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Store current scenario in memory
-current_scenario = None
+# Store scenarios per session
+scenarios: Dict[str, str] = {}
+
+# Session management
+def get_session_id():
+    return str(uuid.uuid4())
+
 
 @app.get("/")
 def read_root():
     return "Welcome to the AI API. Call /gen_scenario first, then /gen_story_result with your response."
 
+
 @app.get("/gen_scenario")
-def get_scenario(): 
-    global current_scenario
-    current_scenario = gen_scenario()
-    return {"scenario": current_scenario}
+def get_scenario():
+    session_id = get_session_id()
+    scenarios[session_id] = gen_scenario()
+    return {
+        "session_id": session_id,
+        "scenario": scenarios[session_id]
+    }
 
 @app.get("/gen_story_result")
-def get_story_result(user_response: str):
-    if not current_scenario:
-        return {"error": "Please generate a scenario first using /gen_scenario"}
+def get_story_result(session_id: str, user_response: str):
+    if session_id not in scenarios:
+        return {"error": "Invalid session or scenario expired"}
     
-    story_result = gen_story_result(current_scenario, user_response)
+    scenario = scenarios[session_id]
+    story_result = gen_story_result(scenario, user_response)
     return {"story_result": story_result}
