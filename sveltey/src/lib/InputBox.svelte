@@ -2,7 +2,7 @@
     import SuccessMessage from './SuccessMessage.svelte';
     let showMessage = false;
     let userResponse = '';
-    let storyResult = '';
+    let storyResult = null;
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -23,9 +23,13 @@
         <button type="submit">Submit</button>
     </form>
     <br>
+    <br>
     <SuccessMessage show={showMessage} />
     {#if storyResult}
-        <div class="story-result">{storyResult}</div>
+        <div class="story-result">{storyResult.result}</div>
+        <div class="status-box" class:alive={storyResult.alive} class:dead={!storyResult.alive}>
+            {storyResult.alive ? 'You Survived!' : 'You Died!'}
+        </div>
     {/if}
 </div>
 
@@ -42,5 +46,19 @@
         margin-top: 20px;
         font-family: "bad script";
         font-size: large;
+    }
+    .status-box {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        color: white;
+    }
+    .alive {
+        background-color: #4CAF50;
+    }
+    .dead {
+        background-color: #f44336;
     }
 </style>

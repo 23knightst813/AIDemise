@@ -17,6 +17,7 @@
     <InputBox/>
   </div>
 
+  <p> Reload the page to play again. ( cnrl + r )</p>
 </main>
 
 <style>

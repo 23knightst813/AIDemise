@@ -1,4 +1,6 @@
 import google.generativeai as genai
+from google.generativeai import GenerationConfig
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
 import os
 from dotenv import load_dotenv
 import json
@@ -9,8 +11,12 @@ load_dotenv()
 api_key = os.getenv("AI_TOKEN")
 # Configure the API with the API key
 genai.configure(api_key=api_key)
+
 # Create a GenerativeModel instance
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-flash",
+    generation_config=GenerationConfig(temperature=1.5)
+)
 
 def gen_scenario():
     response = model.generate_content(''' 
@@ -22,29 +28,63 @@ def gen_scenario():
         'You’re trapped in a room that’s filling with jelly, and you must escape before it reaches your head.'
         'A giant chicken is chasing you, and you have only a spoon to defend yourself.'
         The scenario should set the stage for the user to add their own response and decide what happens next.
-    ''')
+    ''')  
     scenario = response.text
     return scenario
 
 def gen_story_result(scenario, user_response):
-    response = model.generate_content(f'''
-        Imagine you are an AI tasked with creating a story.
-        Here's the scenario: {scenario}
-        User Input: {user_response}
-        Write a compelling narrative with twists and turns,
-        and be sure to evaluate the choices the user might make.
-        Clearly state if the user dies or not, 
-        and provide a satisfying conclusion to the story.
-        keep it short, sweet, and bizarre it should be fairly challenging for the user to survive.
+    safety_settings = {
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE
+    }
 
-        Provide the story in JSON:
-        {{
-            "result": "<short bizarre story>",
-            "alive": "<true or false>"
-        }}
-    ''')
-    story_result = response.text
+    prompt = f'''
+        Create a JSON story response with this exact format:
+        {{"result": "STORY_TEXT", "alive": BOOLEAN}}
+
+        Use this scenario: {scenario}
+        User input: {user_response}
+
+        Rules:
+        - STORY_TEXT should be your creative story response
+        - Replace BOOLEAN with true or false based on if user survives
+        - Use escaped quotes for strings
+        - Story should be engaging and creative
+        - Story should be related to the scenario
+        - The users input must happen
+        - Story Should be graphic and viloent and only for only mature audiences
+        - The user must have  a low chance of survival
+        - what ever the user inputted must happen
+        - Keep json structure exact
+        - If the user dies, the death should be as graphic and as overally violent as possible
+        - Start the story with "You" and then what happens or the user trys to do
+    '''
+
+    response = model.generate_content(prompt, safety_settings=safety_settings)
+    story_result = response.text.strip()
+    
     try:
-        return json.loads(story_result)
-    except json.JSONDecodeError:
-        return {"result": "Error parsing response", "alive": False}
+        # Try to clean up common JSON formatting issues
+        story_result = story_result.replace('\n', ' ').replace('\r', '')
+        story_result = story_result.replace('```json', '').replace('```', '')
+        
+        # Print for debugging
+        print("Raw AI response:", story_result)
+        
+        parsed_result = json.loads(story_result)
+        
+        # Validate expected keys exist
+        if not all(key in parsed_result for key in ['result', 'alive']):
+            raise ValueError("Missing required keys in response")
+            
+        return parsed_result
+        
+    except (json.JSONDecodeError, ValueError) as e:
+        print(f"Error parsing response: {e}")
+        print(f"Raw response was: {story_result}")
+        return {
+            "result": "Error: The AI generated an invalid response. Please try again.",
+            "alive": False
+        }
