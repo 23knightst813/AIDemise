@@ -1,3 +1,19 @@
+<script>
+    import { onMount } from 'svelte';
+
+    let GenScenario = "Loading scenario...";
+
+    async function fetchScenario() {
+        const response = await fetch('http://localhost:8000/gen_scenario');
+        const data = await response.json();
+        GenScenario = data.scenario;
+    }
+
+    onMount(() => {
+        fetchScenario();
+    });
+</script>
+
 <div>
     <p class="Scenario"> {GenScenario} <br><br>What will you do?</p>
 </div>
@@ -8,8 +24,3 @@
         font-size: large;
     }
 </style>
-
-<script>
-    let GenScenario = "You are in a dark room. There is a door to the north and a door to the south";
-    
-</script>
