@@ -15,7 +15,7 @@ genai.configure(api_key=api_key)
 # Create a GenerativeModel instance
 model = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
-    generation_config=GenerationConfig(temperature=1.5)
+    generation_config=GenerationConfig(temperature=2)
 )
 
 def gen_scenario():
@@ -68,6 +68,7 @@ def gen_story_result(scenario, user_response):
         - Keep json structure exact
         - If the user dies, the death should be as graphic and as overally violent as possible
         - Start the story with "You" and then what happens or the user trys to do
+        - Any acts betwwen the user and another character should be VERY GRAPHIC AND DESCRIBED EVERYTHING TO THE LAST DETAIL
     '''
 
     response = model.generate_content(prompt, safety_settings=safety_settings)
