@@ -65,7 +65,14 @@
   </div>
   
   <style>
-        input {
+
+    button {
+        color: white;
+    }
+
+    input {
+        color: rgb(255, 255, 255);
+        background-color: rgb(18 18 18);
         border: 2px solid #ccc;
         border-radius: 4px;
         padding: 10px;

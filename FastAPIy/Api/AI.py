@@ -75,6 +75,7 @@ def gen_scenario():
         - Do not end with "what do you do?" or similar prompts as this is hardcoded
         - Keep the scenario engaging and open-ended
         - Try to include overly graphic or violent scenarios
+        - Scenarios should be possible to happen in real life, and not too far-fetched
     '''
 
     response = model.generate_content(prompt, safety_settings=safety_settings)
