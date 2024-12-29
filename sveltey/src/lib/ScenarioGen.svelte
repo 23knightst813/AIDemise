@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
-    import { sessionId } from 'svelte/store';
+
+    export let sessionId;
 
     let GenScenario = "Loading scenario...";
     let error = null;

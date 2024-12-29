@@ -27,7 +27,15 @@ def gen_scenario():
         'A tidal wave of rabbits is about to block out the sun and eat you.'
         'You’re trapped in a room that’s filling with jelly, and you must escape before it reaches your head.'
         'A giant chicken is chasing you, and you have only a spoon to defend yourself.'
+        'A mysterious fog envelops your town, and people start disappearing one by one.'
+        'You wake up to find that gravity has reversed, and you must navigate an upside-down world.'
+        'A talking cat offers you a deal that could change your life forever.'
         The scenario should set the stage for the user to add their own response and decide what happens next.
+        Rules:
+        - Do not end with "what do you do?" or similar prompts as this is hardcoded
+        - Keep the scenario engaging and open-ended
+        - Try to include overly graphic or violent scenarios
+        
     ''')  
     scenario = response.text
     return scenario
@@ -55,7 +63,7 @@ def gen_story_result(scenario, user_response):
         - Story should be related to the scenario
         - The users input must happen
         - Story Should be graphic and viloent and only for only mature audiences
-        - The user must have  a low chance of survival
+        - The user must have  a low chance of survival but if their survival logic is good, they can survive, and it should not seem unfair
         - what ever the user inputted must happen
         - Keep json structure exact
         - If the user dies, the death should be as graphic and as overally violent as possible

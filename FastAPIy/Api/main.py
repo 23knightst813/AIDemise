@@ -9,7 +9,10 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Svelte dev server default port
+    allow_origins=[
+        "http://localhost:5173",
+        "https://zz1l696m-5173.uks1.devtunnels.ms"  # Svelte dev server default port
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
