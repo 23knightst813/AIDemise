@@ -1,26 +1,49 @@
+<!-- App.svelte -->
 <script>
-  import InputBox from './lib/InputBox.svelte'
-  import ScenarioGen from './lib/ScenarioGen.svelte'
+  import demise from './pages/demise.svelte';
+  import pvp from './pages/pvp.svelte';
   import '@fontsource/bad-script';
-  import { writable } from 'svelte/store';
-
-  const sessionId = writable(null);
+  import { Router, Link, Route } from 'svelte-routing';
+  export let url = '';
 </script>
 
-<main>
-  <h1>AiDemise</h1>
+<Router {url}>
+  {#if url === undefined}
+    <p>Error: URL is undefined</p>
+  {/if}
+  <nav>
+    <Link to="/">Demise</Link>
+    <Link to="/pvp">PvP</Link>
+  </nav>
+  <Route path="/" component={demise} />
+  <Route path="/pvp" component={pvp} />
+</Router>
 
-  <div class="card">
-    <ScenarioGen {sessionId}/>
-    <InputBox {sessionId}/>
-  </div>
 
-
-  <p> Reload the page to play again. ( ctrl + r )</p>
-</main>
 
 <style>
   :global(h1, body, textarea, input) {
     font-family: "bad script";
+  }
+
+  nav {
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  nav :global(a) {
+    color: white;
+    text-decoration: none;
+  }
+
+  nav :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  nav :global(.active) {
+    font-weight: bold;
   }
 </style>

@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@fontsource/bad-script": "^5.1.0"
+    "@fontsource/bad-script": "^5.1.0",
+    "svelte-routing": "^2.13.0"
   }
 }

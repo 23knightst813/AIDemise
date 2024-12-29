@@ -76,6 +76,10 @@ def gen_scenario():
         - Keep the scenario engaging and open-ended
         - Try to include overly graphic or violent scenarios
         - Scenarios should be possible to happen in real life, and not too far-fetched
+        - Scenarios should Explicitly describe the Threat and not leave it up to imagination
+        - The threat should show clear danger to the user
+        - Also the threat in rare cases can be a challanhe the player must overcome
+        - The threat should be something that happens in the real world, not imgainary or fantast only fiction
     '''
 
     response = model.generate_content(prompt, safety_settings=safety_settings)
@@ -140,4 +144,67 @@ def gen_story_result(scenario, user_response):
         return {
             "result": "Error: The AI generated an invalid response. Please try again.",
             "alive": False
+        }
+    
+
+
+
+def gen_pvp_story(scenario, responses):
+
+    safety_settings = {
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE
+    }
+
+    prompt = f'''
+
+        Create a JSON story response with this exact format:
+        {{"story": "STORY_TEXT"}}
+
+        Use this scenario: {scenario}
+        User responses: {responses}
+                     
+        Rules:
+        - STORY_TEXT should be your creative story response
+        - The user's input dictates the scenario and must happen in the story.
+        - The story should be graphic, violent, and intended for mature audiences only.
+        - Use a Karma System so if a user does good, they get good karma, and if they do bad, they get bad karma, do not add a karma section at the end simply effect the story based on a hidden karma system
+        - Start the story with what the user attempts to do. Actions should unfold logically based on their input.
+        - Users can survive only if their survival logic is good and plausible. Death should not feel unfair.
+        - If the user dies, describe it in a graphic, overly violent manner, sparing no detail. Clearly state their death with a conclusion like, "UserName died."
+        - The story should weave all user actions into a cohesive and logical narrative.
+        - If users interact with each other or harm one another, it must directly affect their outcomes, using their names explicitly.
+        - The aftermath of death or survival must be detailed, including how it affects the local area or community.
+        - Crimes committed during the story must be listed at the end with corresponding punishments.In a Crime Section
+        - Keep responses streamlined and logical, avoiding unnecessary complications.
+        - Make the story long , detaling everything that happens in the responses of the users
+        - Dont use pronoun, use the username of the user
+        - The story should be graphic and violent and somewhat sexual
+        - Every users actions MUST be carried out in the story
+        - Include EXTREME gore
+        '''
+
+    response = model.generate_content(prompt, safety_settings=safety_settings)
+    story_result = response.text.strip()
+    
+    try:
+        story_result = story_result.replace('\n', ' ').replace('\r', '')
+        story_result = story_result.replace('```json', '').replace('```', '')
+        
+        print("Raw AI response:", story_result)
+        
+        parsed_result = json.loads(story_result)
+        
+        if not all(key in parsed_result for key in ['story']):
+            raise ValueError("Missing required keys in response")
+            
+        return parsed_result
+        
+    except (json.JSONDecodeError, ValueError) as e:
+        print(f"Error parsing response: {e}")
+        print(f"Raw response was: {story_result}")
+        return {
+            "story": "Error: The AI generated an invalid response. Please try again."
         }
