@@ -11,7 +11,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://zz1l696m-5173.uks1.devtunnels.ms"  # Svelte dev server default port
+        "https://zz1l696m-5173.uks1.devtunnels.ms"  # Sport forwarded URL
     ],
     allow_credentials=True,
     allow_methods=["*"],

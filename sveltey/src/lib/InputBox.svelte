@@ -22,8 +22,8 @@
       loading = true;
       try {
         const response = await fetch(
-          `http://localhost:8000/gen_story_result?session_id=${currentSessionId}&user_response=${encodeURIComponent(userResponse)}`
-        );
+            `https://zz1l696m-8000.uks1.devtunnels.ms/gen_story_result?session_id=${currentSessionId}&user_response=${encodeURIComponent(userResponse)}`
+            );
         const data = await response.json();
         if (data.story_result) {
           storyResult = data.story_result;
@@ -65,6 +65,14 @@
   </div>
   
   <style>
+        input {
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
     .loading {
       border: 1px solid #f3f3f3;
       border-radius: 50%;
