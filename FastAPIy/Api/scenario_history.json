@@ -378,5 +378,29 @@
   {
     "scenario": "You are working late in your office, a high-rise overlooking the city, when a sudden, violent tremor shakes the building.  A large crack spiderwebs across your ceiling, and the acrid smell of burning wires fills the air.  The emergency lights flicker and die, plunging your floor into near darkness; you hear the screams of people trapped on other floors. The building is clearly unstable and in danger of imminent collapse.",
     "timestamp": "2024-12-29T23:05:37.871117"
+  },
+  {
+    "scenario": "You're kayaking on a calm lake at sunset, enjoying the peaceful scenery, when you realize the current is unexpectedly strong, pulling your kayak rapidly towards a series of jagged, submerged rocks visible just beneath the surface of the water.",
+    "timestamp": "2024-12-29T23:19:40.882130"
+  },
+  {
+    "scenario": "You're driving home on a familiar country road at dusk when you realize the tires are losing traction on the slick asphalt.  A dense fog, rapidly increasing in thickness, is rolling in, significantly reducing visibility to almost zero. The road ahead is a steep downhill incline ending in a sheer drop-off into a deep ravine.",
+    "timestamp": "2024-12-31T16:45:41.560508"
+  },
+  {
+    "scenario": "You're on a crowded commuter train during rush hour, and the brakes fail.  The train is speeding uncontrollably towards a sharp bend known for frequent derailments.  The air is filled with screams and the sickening screech of metal on metal.",
+    "timestamp": "2024-12-31T16:45:55.504842"
+  },
+  {
+    "scenario": "You are attempting to climb a sheer cliff face, your only handholds crumbling sandstone.  A sudden, violent gust of wind whips around you, loosening the already precarious rock beneath your feet, sending a shower of debris cascading down towards you, and threatening to dislodge you from the cliff completely.",
+    "timestamp": "2024-12-31T16:48:27.221979"
+  },
+  {
+    "scenario": "You're crossing a seemingly deserted beach at low tide, collecting shells, when you notice a rapidly approaching wall of water, far larger than any ordinary wave, rushing towards you with terrifying speed.  The roar is deafening.",
+    "timestamp": "2024-12-31T16:57:26.110674"
+  },
+  {
+    "scenario": "You are driving home along a familiar country road at dusk when your car suddenly loses power, coasting to a stop on a blind curve.  A dense fog, rapidly rolling in, obscures your vision almost completely. You have no cell service, and the nearest town is miles away.  A steep drop-off borders the road on the outer curve.",
+    "timestamp": "2024-12-31T17:26:36.043281"
   }
 ]

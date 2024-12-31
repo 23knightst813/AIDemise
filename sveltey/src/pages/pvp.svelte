@@ -70,16 +70,15 @@
   }
 
   async function checkStatus() {
-    if (!username || !submitted) return;
-    
     try {
       const response = await fetch('https://zz1l696m-8000.uks1.devtunnels.ms/pvp_status');
       const data = await response.json();
+      scenario = data.scenario || scenario;
       currentSubmissions = data.submissions;
       totalParticipants = data.total;
-      
-      if (data.status === 'complete') {
-        finalStory = data.story;  // Update to use the new response format
+
+      if (data.status === 'complete' && data.story) {
+        finalStory = data.story;
         stopPolling();
       }
     } catch (err) {
@@ -150,6 +149,7 @@
       </div>
     {/if}
   </div>
+  <p> Reload the page to play again. ( ctrl + r )</p>
 </main>
 
 <style>

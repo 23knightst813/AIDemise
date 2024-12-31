@@ -80,6 +80,7 @@ def gen_scenario():
         - The threat should show clear danger to the user
         - Also the threat in rare cases can be a challanhe the player must overcome
         - The threat should be something that happens in the real world, not imgainary or fantast only fiction
+        - Start with 'You' this is for both groups and single players so keep it open ended
     '''
 
     response = model.generate_content(prompt, safety_settings=safety_settings)
