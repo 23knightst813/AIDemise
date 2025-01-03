@@ -1,6 +1,6 @@
 # AIDemise
 
-A simple AI-based survival scenario game built with FastAPI for the backend and Svelte for the frontend. This project was developed to explore FastAPI (having mostly used Flask before) and to learn the basics of Svelte.
+A AI-based survival scenario game built with FastAPI for the backend and Svelte for the frontend. This project was developed to explore FastAPI (having mostly used Flask before) and to learn the basics of Svelte.
 
 ## Purpose
 
@@ -15,8 +15,9 @@ AIDemise is an AI-based survival scenario game where players face intriguing and
 
 - AI-generated scenarios via `gen_scenario` in `AI.py`
 - AI-generated story outcomes via `gen_story_result`
+- AI-generated Multiplayer Storys/outcomes `join_pvp` , `Submit_pvp_response` , `get_pvp_status`
 - FastAPI server defined in `main.py`
-- Svelte client in `sveltey/src`
+- Svelte Front End, allowing users to access single player and multiplayer functionalitys `sveltey/src`
 
 ## Getting Started
 
@@ -49,10 +50,6 @@ AIDemise is an AI-based survival scenario game where players face intriguing and
 
 6. Enjoy the AI-driven survival scenarios!
 
-## Road Map
-
-- Add a multi-player mode
-
 ## Architecture
 
 The application consists of two main components:
@@ -66,21 +63,3 @@ The application consists of two main components:
 - Svelte
 - dotenv
 - google-generativeai
-
-## Usage Examples
-
-### Generating a Scenario
-
-To generate a scenario, send a GET request to the `/gen_scenario` endpoint. The response will include a session ID and the generated scenario.
-
-### Submitting a Response
-
-To submit a response to a scenario, send a GET request to the `/gen_story_result` endpoint with the session ID and user response as query parameters. The response will include the generated story outcome.
-
-### Joining a PvP Session
-
-To join a PvP session, send a POST request to the `/join_pvp` endpoint with the username in the request body. The response will include the scenario and the total number of participants.
-
-### Submitting a PvP Response
-
-To submit a response in a PvP session, send a POST request to the `/submit_pvp_response` endpoint with the username and response in the request body. The response will indicate whether the submission is complete or waiting for other players.
