@@ -41,7 +41,9 @@ AIDemise is an AI-based survival scenario game where players face intriguing and
    npm install
    ```
 
-4. Run the application:
+4 Port forward the API publicly on vscode
+
+5. Run the application:
    ```bash
    ../start.bat
    ```
