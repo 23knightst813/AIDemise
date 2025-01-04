@@ -2,5 +2,9 @@
   "dependencies": {
     "@fontsource/bad-script": "^5.1.0",
     "svelte-routing": "^2.13.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "vite": "^6.0.7"
   }
 }
