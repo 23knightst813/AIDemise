@@ -51,6 +51,7 @@ def get_scenario():
     session_id = get_session_id()
     scenarios[session_id] = gen_scenario()
     logger.info(f"Generated scenario for session_id: {session_id}")
+    reset_pvp()  # Reset PvP state
     return {
         "session_id": session_id,
         "scenario": scenarios[session_id]
