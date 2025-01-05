@@ -19,7 +19,7 @@
     if (!username) return;
     
     try {
-      const response = await fetch('https://zz1l696m-8000.uks1.devtunnels.ms/join_pvp', {
+      const response = await fetch(`${import.meta.env.VITE_API_SERVER_ADDRESS}/join_pvp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -40,7 +40,7 @@
     
     loading = true;
     try {
-      const response = await fetch('https://zz1l696m-8000.uks1.devtunnels.ms/submit_pvp_response', {
+      const response = await fetch(`${import.meta.env.VITE_API_SERVER_ADDRESS}/submit_pvp_response`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -71,7 +71,7 @@
 
   async function checkStatus() {
     try {
-      const response = await fetch('https://zz1l696m-8000.uks1.devtunnels.ms/pvp_status');
+      const response = await fetch(`${import.meta.env.VITE_API_SERVER_ADDRESS}/pvp_status`);
       const data = await response.json();
       scenario = data.scenario || scenario;
       currentSubmissions = data.submissions;
