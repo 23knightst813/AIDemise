@@ -35,4 +35,5 @@
             {GenScenario} <br><br>What will you do?
         {/if}
     </p>
+    <button on:click={fetchScenario}>Generate New Scenario</button>
 </div>

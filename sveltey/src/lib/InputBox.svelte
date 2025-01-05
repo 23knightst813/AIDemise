@@ -29,12 +29,17 @@
           storyResult = data.story_result;
           showMessage = true;
           setTimeout(() => (showMessage = false), 1000);
+          resetSessionId(); // Call the reset function after the story result is fetched
         }
       } catch (error) {
         console.error("Error:", error);
       } finally {
         loading = false;
       }
+    }
+
+    function resetSessionId() {
+      sessionId.set(null);
     }
 </script>
 
