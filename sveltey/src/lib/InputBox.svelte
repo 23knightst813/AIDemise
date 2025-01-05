@@ -22,7 +22,7 @@
       loading = true;
       try {
         const response = await fetch(
-            `https://zz1l696m-8000.uks1.devtunnels.ms/gen_story_result?session_id=${currentSessionId}&user_response=${encodeURIComponent(userResponse)}`
+            `${import.meta.env.VITE_API_SERVER_ADDRESS}/gen_story_result?session_id=${currentSessionId}&user_response=${encodeURIComponent(userResponse)}`
             );
         const data = await response.json();
         if (data.story_result) {

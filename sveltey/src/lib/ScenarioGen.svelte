@@ -8,7 +8,7 @@
 
     async function fetchScenario() {
         try {
-            const response = await fetch('https://zz1l696m-8000.uks1.devtunnels.ms/gen_scenario');
+            const response = await fetch(`${import.meta.env.VITE_API_SERVER_ADDRESS}/gen_scenario`);
             if (!response.ok) {
                 throw new Error('Failed to fetch scenario');
             }
