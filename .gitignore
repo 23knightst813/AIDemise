@@ -24,11 +24,11 @@ dist-ssr
 *.sw?
 
 sveltey/README.md
-FastAPIy/Api/.env
+
 FastAPIy/Api/scenario_history.json
 
 sveltey/.env
-sveltey/.env
+
 
 FastAPIy/Api/__pycache__
 FastAPIy/Api/venv
