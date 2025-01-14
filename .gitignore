@@ -29,3 +29,11 @@ FastAPIy/Api/scenario_history.json
 
 sveltey/.env
 sveltey/.env
+
+FastAPIy/Api/__pycache__
+FastAPIy/Api/venv
+
+# JavaScript package files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
