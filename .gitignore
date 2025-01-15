@@ -27,7 +27,8 @@ sveltey/README.md
 
 FastAPIy/Api/scenario_history.json
 
-
+sveltey/.env
+FastAPIy/Api/.env
 
 FastAPIy/Api/__pycache__
 FastAPIy/Api/venv
