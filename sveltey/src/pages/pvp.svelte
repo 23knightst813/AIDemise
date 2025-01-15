@@ -87,14 +87,49 @@
   }
 
   function startPolling() {
-    pollInterval = setInterval(checkStatus, 2000);
-  }
+  pollInterval = setInterval(() => {
+    checkStatus();
+    checkReloadSignal();
+  }, 2000);
+}
 
-  function stopPolling() {
+function stopPolling() {
     if (pollInterval) {
       clearInterval(pollInterval);
     }
   }
+
+  async function route_reload() {
+  try {
+    await fetch(`${import.meta.env.VITE_API_SERVER_ADDRESS}/trigger_reload`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    // Reload the current page immediately
+    window.location.reload();
+  } catch (err) {
+    console.error('Error triggering reload:', err);
+  }
+}
+
+async function checkReloadSignal() {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_SERVER_ADDRESS}/check_reload`);
+    const data = await response.json();
+    
+    if (data.should_reload) {
+      scenario = 'Waiting for scenario...';
+      submitted = false;
+      finalStory = '';
+      userResponse = '';
+      window.location.reload();
+    }
+  } catch (err) {
+    console.error('Error checking reload signal:', err);
+  }
+}
 
   onMount(() => {
     if (username) {
@@ -146,6 +181,8 @@
       <div class="final-story">
         <h2>Final Story</h2>
         <p>{finalStory}</p>
+        <br/>
+        <button on:click={route_reload}>Play Again</button>
       </div>
     {/if}
   </div>

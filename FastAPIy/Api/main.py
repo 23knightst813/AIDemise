@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 import logging
+import time
 from AI import gen_scenario, gen_story_result, gen_pvp_story
 import uuid
 from typing import Dict, List
@@ -40,6 +41,8 @@ pvp_final_story = None
 class PvPRequest(BaseModel):
     username: str
     response: str = None
+
+last_reload_time = 0
 
 @app.get("/")
 def read_root():
@@ -130,12 +133,25 @@ async def get_pvp_status():
         "scenario": pvp_scenario
     }
 
-@app.post("/reset_pvp")
-def reset_pvp():
-    global pvp_scenario, pvp_responses, pvp_participants, pvp_final_story
-    pvp_scenario = None
-    pvp_responses = []
-    pvp_participants = set()
-    pvp_final_story = None
-    logger.info("PvP state reset")
-    return {"status": "reset"}
+
+
+@app.post("/trigger_reload")
+async def trigger_reload():
+    global pvp_scenario, pvp_responses, pvp_participants, pvp_final_story, last_reload_time
+    try:
+        pvp_scenario = None
+        pvp_responses = []
+        pvp_participants = set()
+        pvp_final_story = None
+        last_reload_time = time.time()
+        logger.info("PvP state reset and reload triggered")
+        return {"status": "reset"}
+    except Exception as e:
+        logger.error(f"Error resetting PvP state: {str(e)}")
+        return {"status": "error"}
+
+@app.get("/check_reload")
+async def check_reload():
+    global last_reload_time
+    should_reload = (time.time() - last_reload_time) < 5
+    return {"should_reload": should_reload}
