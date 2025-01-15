@@ -27,27 +27,13 @@ AIDemise is an AI-based survival scenario game where players face intriguing and
    cd AIDemise
    ```
 
-2. Set up the FastAPI server:
-   ```bash
-   cd FastAPIy/Api
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   pip install -r requirements.txt
-   ```
+2. Set up the servers:
+   run `start.bat`
 
-3. Set up the Svelte client:
-   ```bash
-   cd ../../sveltey
-   npm install
-   ```
+3. Enter your Gemni AI Key in the python `.env`
 
-4 Port forward the API publicly on vscode
-
-5. Run the application:
-   ```bash
-   ../start.bat
-   ```
-
+4. Enter the Fast API server adress in the svelte `.env` (default: `http://localhost:8000`).
+   
 5. Open your browser at the address the Svelte dev server prints (default: `http://localhost:5173`).
 
 6. Enjoy the AI-driven survival scenarios!
