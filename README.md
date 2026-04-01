@@ -1,3 +1,5 @@
+A Project In Dire Need Of A Full Rewrite
+
 # AIDemise
 
 A AI-based survival scenario game built with FastAPI for the backend and Svelte for the frontend. This project was developed to explore FastAPI (having mostly used Flask before) and to learn the basics of Svelte.
